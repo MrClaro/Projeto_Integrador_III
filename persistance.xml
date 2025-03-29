@@ -1,0 +1,34 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="example">
+
+        <class>org.hibernate.lexlabor</class>
+
+        <properties>
+
+            <!-- H2 in-memory database -->
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:h2:mem:db1"/>
+
+            <!-- Credentials -->
+            <property name="jakarta.persistence.jdbc.user"
+                      value="sa"/>
+            <property name="jakarta.persistence.jdbc.password"
+                      value=""/>
+
+            <!-- Agroal connection pool -->
+            <property name="hibernate.agroal.maxSize"
+                      value="20"/>
+
+            <!-- display SQL in console -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+
+        </properties>
+
+    </persistence-unit>
+</persistence>
