@@ -177,6 +177,7 @@ public class ProfileView extends JFrame {
      private void showHome() {
         HomeView homeView = new HomeView();
         homeView.setVisible(true);
+        dispose();
     }
 
     private void showProfile() {

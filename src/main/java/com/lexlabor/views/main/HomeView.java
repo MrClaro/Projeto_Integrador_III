@@ -170,6 +170,7 @@ public class HomeView extends JFrame {
      private void showProfile() {
         ProfileView profileView = new ProfileView();
         profileView.setVisible(true);
+         dispose();
     }
 
    private void logout() {
