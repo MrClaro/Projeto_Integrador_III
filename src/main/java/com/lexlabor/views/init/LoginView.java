@@ -94,7 +94,7 @@ public class LoginView extends JFrame {
         formPanel.add(passwordField, gbc);
 
         loginButton = new JButton("Login");
-        loginButton.setBackground(new Color(179, 194, 242));
+        loginButton.setBackground(new Color(115, 83, 186));
         loginButton.setForeground(Color.WHITE);
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.addActionListener(e -> validateAndLogin());
