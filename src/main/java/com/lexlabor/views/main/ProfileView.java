@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import com.lexlabor.views.component.BaseLayout;
+import com.lexlabor.views.component.StyledButton;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -162,15 +163,10 @@ public class ProfileView extends JFrame {
         JOptionPane.showMessageDialog(this, "Leis ordenadas por data.");
     }
 
-        // Cria os botões para o painel de Home 
+    // Cria os botões para o painel de Home
     private JButton createStyledButtonForHome(String text) {
-        JButton button = new JButton(text);
-        button.setBackground(new Color(115, 83, 186));
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Arial", Font.BOLD, 14));
-        button.setPreferredSize(new Dimension(150, 40));
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        StyledButton button = new StyledButton(text);
+        button.setCustomSize(180, 40);
         return button;
     }
 

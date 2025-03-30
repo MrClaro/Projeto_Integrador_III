@@ -1,6 +1,7 @@
 package com.lexlabor.views.init;
 
 import com.lexlabor.views.component.BrandingPane;
+import com.lexlabor.views.component.StyledButton;
 import com.lexlabor.views.main.HomeView;
 
 import javax.swing.*;
@@ -66,7 +67,7 @@ public class LoginView extends JFrame {
 
         JLabel emailLabel = new JLabel("Email:");
         emailField = new JTextField(20);
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel passwordLabel = new JLabel("Senha:");
         passwordField = new JPasswordField(20);
 
         // Adicionando elementos ao painel
@@ -93,18 +94,18 @@ public class LoginView extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         formPanel.add(passwordField, gbc);
 
-        loginButton = new JButton("Login");
-        loginButton.setBackground(new Color(179, 194, 242));
-        loginButton.setForeground(Color.WHITE);
+        loginButton = new StyledButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.addActionListener(e -> validateAndLogin());
+
 
         // Painel de Sign Up
         JPanel signUpPanel = new JPanel();
         signUpPanel.setBackground(Color.WHITE);
-        JLabel signUpLabel = new JLabel("I don't have an account");
-        signUpButton = new JButton("Sign Up");
-        signUpButton.setForeground(Color.RED);
+        JLabel signUpLabel = new JLabel("Ainda não tem uma conta? ");
+        signUpButton = new StyledButton("Registrar-se");
+        signUpButton.setPreferredSize(new Dimension(130, 30));
+        signUpButton.setForeground(Color.BLACK);
         signUpButton.addActionListener(e -> switchToSignUp());
 
         signUpPanel.add(signUpLabel);

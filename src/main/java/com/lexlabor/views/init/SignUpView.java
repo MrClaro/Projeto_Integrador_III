@@ -1,6 +1,7 @@
 package com.lexlabor.views.init;
 
 import com.lexlabor.views.component.BrandingPane;
+import com.lexlabor.views.component.StyledButton;
 import com.lexlabor.views.main.HomeView;
 
 import javax.swing.*;
@@ -49,7 +50,7 @@ public class SignUpView extends JFrame {
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setBorder(BorderFactory.createEmptyBorder(50, 40, 50, 40));
 
-    JLabel signUpLabel = new JLabel("SIGN UP");
+    JLabel signUpLabel = new JLabel("REGISTRAR-SE");
     signUpLabel.setFont(new Font("Segoe UI", Font.BOLD, 36));
     signUpLabel.setForeground(new Color(144, 0, 179));
     signUpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -60,11 +61,11 @@ public class SignUpView extends JFrame {
     gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.insets = new Insets(5, 5, 5, 5);
 
-    JLabel nameLabel = new JLabel("Full Name:");
+    JLabel nameLabel = new JLabel("Nome Completo:");
     nameField = new JTextField(20);
     JLabel emailLabel = new JLabel("Email:");
     emailField = new JTextField(20);
-    JLabel passwordLabel = new JLabel("Password:");
+    JLabel passwordLabel = new JLabel("Senha:");
     passwordField = new JPasswordField(20);
 
     gbc.gridx = 0;
@@ -102,17 +103,16 @@ public class SignUpView extends JFrame {
     gbc.anchor = GridBagConstraints.WEST;
     formPanel.add(passwordField, gbc);
 
-    signUpButton = new JButton("Sign Up");
-    signUpButton.setBackground(new Color(179, 194, 242));
-    signUpButton.setForeground(Color.WHITE);
+    signUpButton = new StyledButton("Registrar");
     signUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     signUpButton.addActionListener(e -> validateAndRegister());
 
     JPanel loginPanel = new JPanel();
     loginPanel.setBackground(Color.WHITE);
-    JLabel loginLabel = new JLabel("I've an account");
-    loginButton = new JButton("Login");
-    loginButton.setForeground(Color.RED);
+    JLabel loginLabel = new JLabel("Já tem uma conta? ");
+    loginButton = new StyledButton("Login");
+    loginButton.setPreferredSize(new Dimension(100, 30));
+    loginButton.setForeground(Color.BLACK);
     loginButton.addActionListener(e -> switchToLogin());
     loginPanel.add(loginLabel);
     loginPanel.add(loginButton);

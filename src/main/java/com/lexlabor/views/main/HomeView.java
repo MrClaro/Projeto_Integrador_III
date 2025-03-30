@@ -13,10 +13,10 @@ import java.util.List;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.lexlabor.views.component.BaseLayout;
+import com.lexlabor.views.component.StyledButton;
 
 public class HomeView extends JFrame {
 
-   
    private JPanel contentPanel;
     private DefaultListModel<String> lawListModel;
     private JList<String> lawList;
@@ -44,7 +44,7 @@ public class HomeView extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.BOTH;
 
-        JPanel searchPanel = new JPanel(new BorderLayout());
+        JPanel searchPanel = new JPanel(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
@@ -52,12 +52,24 @@ public class HomeView extends JFrame {
         gbc.gridwidth = 2;
         contentPanel.add(searchPanel, gbc);
 
-        JTextField searchField = new JTextField(30);
+        JTextField searchField = new JTextField(60);
         JButton searchButton = createStyledButtonOptions("Buscar");
         searchButton.addActionListener(e -> performSearch(searchField.getText()));
 
-        searchPanel.add(searchField, BorderLayout.CENTER);
-        searchPanel.add(searchButton, BorderLayout.EAST);
+        int buttonHeight = searchButton.getPreferredSize().height;
+        searchField.setPreferredSize(new Dimension(searchField.getPreferredSize().width, buttonHeight));
+
+        GridBagConstraints searchGbc = new GridBagConstraints();
+        searchGbc.gridx = 0;
+        searchGbc.gridy = 0;
+        searchGbc.weightx = 1.0;
+        searchGbc.fill = GridBagConstraints.HORIZONTAL;
+        searchPanel.add(searchField, searchGbc);
+
+        searchGbc.gridx = 1;
+        searchGbc.weightx = 0;
+        searchGbc.insets = new Insets(0, 5, 0, 0);
+        searchPanel.add(searchButton, searchGbc);
 
         JPanel lawDataPanel = new JPanel(new BorderLayout());
         lawDataPanel.setBorder(BorderFactory.createTitledBorder("Leis Recentes"));
@@ -139,27 +151,15 @@ public class HomeView extends JFrame {
     }
 
 
-    // Cria os botões para o painel de Home
-    private JButton createStyledButtonForHome(String text) {
-        JButton button = new JButton(text);
-        button.setBackground(new Color(115, 83, 186));
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Arial", Font.BOLD, 14));
-        button.setPreferredSize(new Dimension(150, 40));
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+    private JButton createStyledButtonOptions(String text) {
+        StyledButton button = new StyledButton(text);
+        button.setCustomSize(120, 40);
         return button;
     }
 
-    // Cria os botões para as opções
-    private JButton createStyledButtonOptions(String text) {
-        JButton button = new JButton(text);
-        button.setBackground(new Color(115, 83, 186));
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Arial", Font.BOLD, 14));
-        button.setPreferredSize(new Dimension(120, 40));
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+    private JButton createStyledButtonForHome(String text) {
+        StyledButton button = new StyledButton(text);
+        button.setCustomSize(150, 40);
         return button;
     }
 
