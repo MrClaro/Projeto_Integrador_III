@@ -4,9 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 import com.lexlabor.views.navigation.NavBarAction;
+import lombok.Getter;
 
+@Getter
 public class BaseLayout extends JPanel {
-    private JPanel contentPanel;
+    private final JPanel contentPanel;
 
     public BaseLayout(NavBarAction homeAction, NavBarAction profileAction,
                       NavBarAction usersAction, NavBarAction logoutAction) {
@@ -20,7 +22,4 @@ public class BaseLayout extends JPanel {
         add(contentPanel, BorderLayout.CENTER);
     }
 
-    public JPanel getContentPanel() {
-        return contentPanel;
-    }
 }

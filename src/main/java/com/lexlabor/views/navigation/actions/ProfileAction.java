@@ -1,7 +1,6 @@
 package com.lexlabor.views.navigation.actions;
 
 import com.lexlabor.views.navigation.NavBarAction;
-import com.lexlabor.views.main.HomeView;
 import com.lexlabor.views.navigation.NavigableView;
 
 public class ProfileAction implements NavBarAction {
