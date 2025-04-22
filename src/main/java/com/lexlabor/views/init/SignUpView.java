@@ -1,20 +1,16 @@
 package com.lexlabor.views.init;
 
+import com.lexlabor.controllers.UsuarioController;
+import com.lexlabor.exceptions.BusinessException;
+import com.lexlabor.utils.ValidationUtil;
 import com.lexlabor.views.component.BrandingPane;
 import com.lexlabor.views.component.StyledButton;
 import com.lexlabor.views.main.HomeView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SignUpView extends JFrame {
-
-  private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-      + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-  private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
 
   private JTextField nameField, emailField;
   private JPasswordField passwordField;
@@ -105,7 +101,13 @@ public class SignUpView extends JFrame {
 
     signUpButton = new StyledButton("Registrar");
     signUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-    signUpButton.addActionListener(e -> validateAndRegister());
+    signUpButton.addActionListener(e -> {
+        try {
+            validateAndRegister();
+        } catch (BusinessException ex) {
+            throw new RuntimeException(ex);
+        }
+    });
 
     JPanel loginPanel = new JPanel();
     loginPanel.setBackground(Color.WHITE);
@@ -128,7 +130,7 @@ public class SignUpView extends JFrame {
     return panel;
   }
 
-  private void validateAndRegister() {
+  private void validateAndRegister() throws BusinessException {
     String fullName = nameField.getText().trim();
     String email = emailField.getText().trim();
     String password = new String(passwordField.getPassword()).trim();
@@ -138,20 +140,16 @@ public class SignUpView extends JFrame {
           "Por favor, preencha todos os campos!",
           "Campos obrigatórios",
           JOptionPane.WARNING_MESSAGE);
-    } else if (!validateEmail(email)) {
-      JOptionPane.showMessageDialog(this, "Email inválido!");
     } else {
+      UsuarioController usuarioController = new UsuarioController();
+      usuarioController.cadastrarUsuario(fullName, email, password);
+
+      JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
       redirectToHome();
     }
   }
 
-  public static boolean validateEmail(String email) {
-    Matcher matcher = pattern.matcher(email);
-    return matcher.matches();
-  }
-
   private void redirectToHome() {
-    JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
     new HomeView().setVisible(true);
     dispose();
   }
