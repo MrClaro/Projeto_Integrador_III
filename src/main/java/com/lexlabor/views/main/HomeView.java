@@ -1,26 +1,27 @@
 package com.lexlabor.views.main;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.lexlabor.views.component.BaseLayout;
 import com.lexlabor.views.component.StyledButton;
+import com.lexlabor.views.navigation.NavBarAction;
+import com.lexlabor.views.navigation.NavigableView;
+import com.lexlabor.views.navigation.actions.HomeAction;
+import com.lexlabor.views.navigation.actions.LogoutAction;
+import com.lexlabor.views.navigation.actions.ProfileAction;
+import com.lexlabor.views.navigation.actions.UsersAction;
 
-public class HomeView extends JFrame {
+public class HomeView extends JFrame implements NavigableView {
 
-   private JPanel contentPanel;
-    private DefaultListModel<String> lawListModel;
+    private JPanel contentPanel;
     private JList<String> lawList;
-    private List<Integer> selectedLaws = new ArrayList<>();
+    private final List<Integer> selectedLaws = new ArrayList<>();
 
     public HomeView() {
         setTitle("Home");
@@ -33,7 +34,12 @@ public class HomeView extends JFrame {
     }
 
     private void initComponents() {
-        BaseLayout baseLayout = new BaseLayout(e -> showHome(), e -> showProfile(), e -> logout());
+        NavBarAction homeAction = new HomeAction(this);
+        NavBarAction profileAction = new ProfileAction(this);
+        NavBarAction usersAction = new UsersAction(this);
+        NavBarAction logoutAction = new LogoutAction(this);
+
+        BaseLayout baseLayout = new BaseLayout(homeAction, profileAction, usersAction, logoutAction);
         contentPanel = baseLayout.getContentPanel();
         setupLayout();
         add(baseLayout);
@@ -80,7 +86,7 @@ public class HomeView extends JFrame {
         gbc.gridwidth = 2;
         contentPanel.add(lawDataPanel, gbc);
 
-        lawListModel = new DefaultListModel<>();
+        DefaultListModel<String> lawListModel = new DefaultListModel<>();
         lawList = new JList<>(lawListModel);
         lawList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane listScrollPane = new JScrollPane(lawList);
@@ -120,8 +126,9 @@ public class HomeView extends JFrame {
         actionsPanel.add(exportButton);
     }
 
-
-    // Cria o modal de detalhes da lei
+    // =============================
+    // Implementação de Ações
+    // ==============================
     private void showLawDetails(String lawTitle) {
         JDialog lawDialog = new JDialog(this, lawTitle, true);
         lawDialog.setSize(600, 400);
@@ -150,34 +157,6 @@ public class HomeView extends JFrame {
         lawDialog.setVisible(true);
     }
 
-
-    private JButton createStyledButtonOptions(String text) {
-        StyledButton button = new StyledButton(text);
-        button.setCustomSize(120, 40);
-        return button;
-    }
-
-    private JButton createStyledButtonForHome(String text) {
-        StyledButton button = new StyledButton(text);
-        button.setCustomSize(150, 40);
-        return button;
-    }
-
-    private void showHome() {
-        JOptionPane.showMessageDialog(this, "Página Inicial");
-    }
-
-     private void showProfile() {
-        ProfileView profileView = new ProfileView();
-        profileView.setVisible(true);
-         dispose();
-    }
-
-   private void logout() {
-        JOptionPane.showMessageDialog(this, "Você foi desconectado!");
-        dispose();
-    }
-
     private void performSearch(String searchText) {
         JOptionPane.showMessageDialog(this, "Buscando por: " + searchText);
     }
@@ -196,7 +175,6 @@ public class HomeView extends JFrame {
         }
     }
 
-    
     private void showFilterDialog() {
         JDialog filterDialog = new JDialog(this, "Filtros", true);
         filterDialog.setSize(400, 300);
@@ -326,6 +304,53 @@ public class HomeView extends JFrame {
     exportDialog.add(buttonPanel, BorderLayout.SOUTH);
     exportDialog.setVisible(true);
 }
+    // =============================
+    // Fim da implementação de ações
+    // ==============================
+
+    // =============================
+    // Implementação de Navegação
+    // ==============================
+    public void showHome() {
+    }
+
+    public void showProfile() {
+        ProfileView profileView = new ProfileView();
+        profileView.setVisible(true);
+        dispose();
+    }
+
+    public void showUsers() {
+        UsersView usersView = new UsersView();
+        usersView.setVisible(true);
+        dispose();
+    }
+
+    public void logout() {
+        JOptionPane.showMessageDialog(this, "Você foi desconectado!");
+        dispose();
+    }
+    // ==============================
+    // Fim da navegação
+    // ==============================
+
+    // ==============================
+    // Métodos de Estilo
+    // ==============================
+    private JButton createStyledButtonOptions(String text) {
+        StyledButton button = new StyledButton(text);
+        button.setCustomSize(120, 40);
+        return button;
+    }
+
+    private JButton createStyledButtonForHome(String text) {
+        StyledButton button = new StyledButton(text);
+        button.setCustomSize(150, 40);
+        return button;
+    }
+    // ==============================
+    // Fim dos métodos de estilo
+    // ==============================
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new HomeView().setVisible(true));
