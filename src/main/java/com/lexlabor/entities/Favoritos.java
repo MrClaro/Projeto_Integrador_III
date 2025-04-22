@@ -1,3 +1,5 @@
+package com.lexlabor.entities;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
