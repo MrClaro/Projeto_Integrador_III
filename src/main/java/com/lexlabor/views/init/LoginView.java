@@ -1,22 +1,15 @@
 package com.lexlabor.views.init;
 
+import com.lexlabor.utils.ValidationUtil;
 import com.lexlabor.views.component.BrandingPane;
 import com.lexlabor.views.component.StyledButton;
 import com.lexlabor.views.main.HomeView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class LoginView extends JFrame {
-
-    private static final String EMAIL_PATTERN =
-            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-    private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
 
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -122,18 +115,7 @@ public class LoginView extends JFrame {
 
         return panel;
     }
-    // TODO: Implement the switch to HomePage view
-    /*
-    private void handleSignUp() {
-    JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
 
-    HomeView homeView = new HomeView();
-    homeView.setVisible(true);
-
-    // Fecha a tela de cadastro
-    dispose();
-     }
-    */
     private void validateAndLogin() {
         String email = emailField.getText().trim();
         String password = new String(passwordField.getPassword()).trim();
@@ -145,20 +127,14 @@ public class LoginView extends JFrame {
                     "Campos obrigatórios",
                     JOptionPane.WARNING_MESSAGE
             );
-        } else  if(!validateEmail(email)){
-            JOptionPane.showMessageDialog(this, "Email inválido!");
-        } else {
+        }  else {
+            JOptionPane.showMessageDialog(this, "Bem-vindo devolta");
             redirectToHome();
         }
     }
 
-    public static boolean validateEmail(String email){
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
 
     private void redirectToHome() {
-        JOptionPane.showMessageDialog(this, "Bem-vindo devolta");
         new HomeView().setVisible(true);
         dispose();
     }
