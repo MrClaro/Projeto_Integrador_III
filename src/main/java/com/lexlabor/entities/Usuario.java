@@ -23,6 +23,9 @@ public class Usuario {
     @Column(name = "USR_SENHA", nullable = false)
     private String senha;
 
+    @Column(name = "USR_ATIVO", nullable = false)
+    private boolean ativo = true;
+
     @ManyToMany
     @JoinTable(
         name = "FAV_FAVORITOS",
@@ -30,5 +33,4 @@ public class Usuario {
         inverseJoinColumns = @JoinColumn(name = "FAV_LEI_ID")
     )
     private List<LeiTrabalhista> leisFavoritas;
-
 }

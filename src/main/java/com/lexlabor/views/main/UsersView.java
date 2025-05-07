@@ -153,9 +153,9 @@ public class UsersView extends JFrame implements NavigableView {
     // ==================================
     private void refreshUsersList() {
         usersListModel.clear();
-        usuarioController.listarUsuarios().forEach(usuario -> {
-            usersListModel.addElement(usuario.getNome() + " - " + usuario.getEmail());
-        });
+        usuarioController.listarUsuarios().stream()
+                .filter(Usuario::isAtivo)
+                .forEach(usuario -> usersListModel.addElement(usuario.getNome() + " - " + usuario.getEmail()));
     }
 
     private void handleSave(ActionEvent e) {

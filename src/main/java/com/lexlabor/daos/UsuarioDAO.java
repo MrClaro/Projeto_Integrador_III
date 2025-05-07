@@ -12,7 +12,7 @@ public class UsuarioDAO {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(usuario);
+            session.persist(usuario);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
@@ -24,7 +24,7 @@ public class UsuarioDAO {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(usuario);
+            session.merge(usuario);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
@@ -36,10 +36,13 @@ public class UsuarioDAO {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
+
             Usuario usuario = session.get(Usuario.class, id);
             if (usuario != null) {
-                session.delete(usuario);
+                usuario.setAtivo(false);
+                session.merge(usuario);
             }
+
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
