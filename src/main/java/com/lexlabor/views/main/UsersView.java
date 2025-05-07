@@ -11,7 +11,7 @@ import com.lexlabor.views.navigation.actions.HomeAction;
 import com.lexlabor.views.navigation.actions.LogoutAction;
 import com.lexlabor.views.navigation.actions.ProfileAction;
 import com.lexlabor.views.navigation.actions.UsersAction;
-import org.mindrot.jbcrypt.BCrypt;
+
 
 import javax.swing.*;
 import java.awt.*;
